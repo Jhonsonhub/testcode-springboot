@@ -10,10 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.testfolder.entity.User;
 
 public class CustomUserDetails implements UserDetails {
-	private User user;
+	private User User;
 
 	public CustomUserDetails(User user) {
-		this.user = user;
+		this.User = user;
 	}
 
 	@Override
@@ -23,12 +23,12 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return User.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getUsername();
+		return User.getUsername();
 	}
 
 	@Override
