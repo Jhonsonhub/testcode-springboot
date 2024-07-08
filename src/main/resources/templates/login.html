@@ -2,17 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
+    <style>
+        .validation-message {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+    
+        <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var usernameValidation = document.getElementById("u543sernameValidation");
+            var passwordValidation = document.getElementById("passwordValidation");
+            
+            var usernamePattern = /^[a-zA-Z0-9ぁ-んァ-ヶ一-龠々ー]+$/;
+            var passwordPattern = /^[a-zA-Z0-9]{6,10}$/;
+            
+            var isValid = true;
+
+            // Validate Username
+            if (!usernamePattern.test(username)) {
+                usernameValidation.textContent = "ユーザー名は記号以外ＯＫ（日本語と英語ＯＫ、記号だけはＮＧ）";
+                isValid = false;
+            } else {
+                usernameValidation.textContent = "";
+            }
+
+            // Validate Password
+            if (!passwordPattern.test(password)) {
+                passwordValidation.textContent = "パスワードは６文字以上１０文字以下、全角はＮＧ、半角は英字と数字ＯＫ、記号はＮＧ";
+                isValid = false;
+            } else {
+                passwordValidation.textContent = "";
+            }
+			alert(isValid);
+            return isValid;
+        }
+    </script>
+    
 </head>
 <body>
     <h1>Login</h1>
-    <form th:action="@{/login}" method="post">
+    <!--<form id="loginForm" th:action="@{/login}" method="post" onsubmit="return validateForm();">-->
+	<form id="loginForm" th:action="@{/login}" method="post" onsubmit="return validateForm()">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
+            <div id="usernameValidation" class="validation-message"></div>
+            <div class="validation-message">ユーザー名は記号以外で入力してください。（※日本語と英語はＯＫ、記号だけはＮＧです。）</div>
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required minlength="6" maxlength="10">
+            <div id="passwordValidation" class="validation-message"></div>
+            <div class="validation-message">パスワードは６文字以上１０文字以下で入力してください。（※全角はＮＧ、半角は英字と数字ＯＫ、記号はＮＧです。）</div>
         </div>
         <div>
             <button type="submit">Login</button>
@@ -24,5 +68,6 @@
     <div th:if="${param.logout}">
         <p>You have been logged out.</p>
     </div>
+
 </body>
 </html>
