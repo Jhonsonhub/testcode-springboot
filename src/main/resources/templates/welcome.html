@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Success</title>
     <style>
         body {
@@ -26,15 +27,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Login Successful</h1>
+        <h1>Login Success</h1>
         <p>Welcome to login success Page</p>
         <button class="button" onclick="goBack()">Go Back</button>
-        <button class="button" onclick="goBack()">Go Register</button>
+        <button class="button" onclick="checkRole()">Go Management</button>
     </div>
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+    <script src="/js/welcome.js"></script>
 </body>
 </html>
