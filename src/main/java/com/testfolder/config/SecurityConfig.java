@@ -22,10 +22,11 @@ public class SecurityConfig extends WebSecurityConfiguration {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests()
-				.requestMatchers("/", "/login", "/register", "/delete", "/js/**", "/css/**").permitAll()
+				.requestMatchers("/", "/login",  "/manage", "/register", "/delete", "/js/**", "/css/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
@@ -36,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfiguration {
 				.and()
 				.logout()
 				.logoutUrl("/perform_logout")
-				.deleteCookies("JSESSIONID");
+				.deleteCookies("JSESSIONID")
+				;
 	}
 
 	@Bean
