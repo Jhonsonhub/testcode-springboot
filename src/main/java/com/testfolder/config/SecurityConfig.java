@@ -15,41 +15,42 @@ import com.testfolder.security.CustomUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfiguration {
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
 
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
 
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeRequests()
-            .requestMatchers("/login", "/register").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .formLogin()
-            .loginPage("/login")
-            .defaultSuccessUrl("/home", true)
-            .permitAll()
-            .and()
-            .logout()
-            .permitAll();
-    }
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.authorizeRequests()
+				.requestMatchers("/", "/login", "/register", "/delete", "/js/**", "/css/**").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/login")
+				.loginProcessingUrl("/perform_login")
+				.defaultSuccessUrl("/success", true)
+				.failureUrl("/login?error=true")
+				.and()
+				.logout()
+				.logoutUrl("/perform_logout")
+				.deleteCookies("JSESSIONID");
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return rawPassword.toString(); // No encoding
-            }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new PasswordEncoder() {
+			@Override
+			public String encode(CharSequence rawPassword) {
+				return rawPassword.toString(); // No encoding
+			}
 
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return rawPassword.toString().equals(encodedPassword); // No encoding
-            }
-        };
-    }
+			@Override
+			public boolean matches(CharSequence rawPassword, String encodedPassword) {
+				return rawPassword.toString().equals(encodedPassword); // No encoding
+			}
+		};
+	}
 }
