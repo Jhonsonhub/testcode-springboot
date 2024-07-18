@@ -23,6 +23,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             width: 300px;
+            display: none; /* Initially hide all forms */
         }
 
         div {
@@ -66,29 +67,51 @@
         h1, h2 {
             text-align: center;
         }
+
+        #toggle-buttons {
+            margin-bottom: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div>
         <h1>User Management</h1>
 
-        <form action="/delete" method="post" id="userForm">
-			 <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <div id="toggle-buttons">
+            <button onclick="showForm('register')">Register User</button>
+            <button onclick="showForm('delete')">Delete User</button>
+        </div>
+
+        <!-- Registration Form -->
+        <form action="/register" method="post" id="registerForm">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
             <div>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="register-username">Username:</label>
+                <input type="text" id="register-username" name="username" required>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
             </div>
             <div>
-                <label for="role">Role:</label>
-                <input type="text" id="role" name="role">
+                <label for="register-role">Role:</label>
+                <input type="text" id="register-role" name="role" required>
             </div>
             <div>
-                <button type="button" id="registerButton" onclick="submitForm('/register')">Register</button>
-                <button type="button" id="deleteButton" onclick="submitForm('/delete')">Delete</button>
+                <button type="button" onclick="submitForm('/register')">Register</button>
+            </div>
+        </form>
+
+        <!-- Deletion Form -->
+        <form action="/delete" method="post" id="deleteForm">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <div>
+                <label for="delete-username">Username:</label>
+                <input type="text" id="delete-username" name="username" required>
+            </div>
+            <div>
+                <button type="button" onclick="submitForm('/delete')">Delete</button>
             </div>
         </form>
     </div>

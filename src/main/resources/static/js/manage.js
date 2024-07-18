@@ -1,20 +1,33 @@
+document.addEventListener('DOMContentLoaded', function() {
+    
+    showForm('register');
+});
+
+function showForm(formType) {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('deleteForm').style.display = 'none';
+
+    if (formType === 'register') {
+        document.getElementById('registerForm').style.display = 'block';
+    } else if (formType === 'delete') {
+        document.getElementById('deleteForm').style.display = 'block';
+    }
+}
+
 function submitForm(action) {
-	const form = document.getElementById('userForm');
-	form.action = action;
-
-	if (action === '/delete') {
-		document.getElementById('username').setAttribute('required', 'required');
-		document.getElementById('password').removeAttribute('required');
-		document.getElementById('role').removeAttribute('required');
-	} else {
-		document.getElementById('username').setAttribute('required', 'required');
-		document.getElementById('password').setAttribute('required', 'required');
-		document.getElementById('role').setAttribute('required', 'required');
-	}
-
-	if (form.checkValidity()) {
-		form.submit();
-	} else {
-		form.reportValidity();
-	}
+    if (action === '/register') {
+        const registerForm = document.getElementById('registerForm');
+        if (registerForm.checkValidity()) {
+            registerForm.submit();
+        } else {
+            registerForm.reportValidity();
+        }
+    } else if (action === '/delete') {
+        const deleteForm = document.getElementById('deleteForm');
+        if (deleteForm.checkValidity()) {
+            deleteForm.submit();
+        } else {
+            deleteForm.reportValidity();
+        }
+    }
 }
