@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+    // Initially show the registration form
     showForm('register');
 });
 
