@@ -1,37 +1,32 @@
-if (window.jQuery) {
-    console.log("jQuery is loaded");
-} else {
-    console.log("jQuery is not loaded");
-}
+document.addEventListener('DOMContentLoaded', function() {
+	console.log("Script is loaded and running"); // Add this line to verify the script is loaded
+	document.getElementById('loginForm').addEventListener('submit', function(event) {
+		let isValid = true;
 
-$(document).ready(function () {
-    $('#loginForm').on('submit', function (event) {
-        let isValid = true;
+		const USERNAME_PATTERN = /^[a-zA-Z0-9‚Ÿ-‚ñƒ@-ƒ–ˆê-êX[]+$/;
+		const PASSWORD_PATTERN = /^[a-zA-Z0-9]{6,10}$/;
 
-        const USERNAME_PATTERN = /^[a-zA-Z0-9ã-ã‚“ã‚¡-ãƒ¶ä¸€-é¾ ã€…ãƒ¼]+$/;
-        const PASSWORD_PATTERN = /^[a-zA-Z0-9]{6,10}$/;
+		const username = document.getElementById('username').value;
+		const password = document.getElementById('password').value;
 
-        const username = $('#username').val();
-        const password = $('#password').val();
+		// Validate Username
+		if (!USERNAME_PATTERN.test(username)) {
+			isValid = false;
+			document.getElementById('usernameErrorMessage').textContent = "ƒ†[ƒU[–¼‚Í‹L†ˆÈŠO‚n‚ji“ú–{Œê‚Æ‰pŒê‚n‚jA‹L†‚¾‚¯‚Í‚m‚fj";
+		} else {
+			document.getElementById('usernameErrorMessage').textContent = "";
+		}
 
-        // Validate Username
-        if (!USERNAME_PATTERN.test(username)) {
-            isValid = false;
-            $('#usernameErrorMessage').text("ãƒ¦ãƒ¼ã‚¶ãƒ¼åã¯è¨˜å·ä»¥å¤–ï¼¯ï¼«ï¼ˆæ—¥æœ¬èªã¨è‹±èªï¼¯ï¼«ã€è¨˜å·ã ã‘ã¯ï¼®ï¼§ï¼‰");
-        } else {
-            $('#usernameErrorMessage').text("");
-        }
+		// Validate Password
+		if (!PASSWORD_PATTERN.test(password)) {
+			isValid = false;
+			document.getElementById('passwordErrorMessage').textContent = "ƒpƒXƒ[ƒh‚Í‚U•¶šˆÈã‚P‚O•¶šˆÈ‰ºA‘SŠp‚Í‚m‚fA”¼Šp‚Í‰pš‚Æ”š‚n‚jA‹L†‚Í‚m‚f";
+		} else {
+			document.getElementById('passwordErrorMessage').textContent = "";
+		}
 
-        // Validate Password
-        if (!PASSWORD_PATTERN.test(password)) {
-            isValid = false;
-            $('#passwordErrorMessage').text("ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯ï¼–æ–‡å­—ä»¥ä¸Šï¼‘ï¼æ–‡å­—ä»¥ä¸‹ã€å…¨è§’ã¯ï¼®ï¼§ã€åŠè§’ã¯è‹±å­—ã¨æ•°å­—ï¼¯ï¼«ã€è¨˜å·ã¯ï¼®ï¼§");
-        } else {
-            $('#passwordErrorMessage').text("");
-        }
-
-        if (!isValid) {
-            event.preventDefault(); // Prevent form submission if validation fails
-        }
-    });
+		if (!isValid) {
+			event.preventDefault(); // Prevent form submission if validation fails
+		}
+	});
 });
