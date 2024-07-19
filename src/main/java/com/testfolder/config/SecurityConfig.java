@@ -24,21 +24,23 @@ public class SecurityConfig extends WebSecurityConfiguration {
 
 	@SuppressWarnings("deprecation")
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-				.authorizeRequests()
-				.requestMatchers("/", "/login",  "/manage", "/register", "/delete", "/js/**", "/css/**").permitAll()
-				.anyRequest().authenticated()
-				.and()
-				.formLogin()
-				.loginPage("/login")
-				.loginProcessingUrl("/perform_login")
-				.defaultSuccessUrl("/success", true)
-				.failureUrl("/login?error=true")
-				.and()
-				.logout()
-				.logoutUrl("/perform_logout")
-				.deleteCookies("JSESSIONID")
-				;
+	    http
+	        .authorizeRequests()
+	            .requestMatchers("/", "/login", "/manage", "/register", "/delete", "/js/**", "/css/**").permitAll()
+	            .anyRequest().authenticated()
+	        .and()
+	        .formLogin()
+	            .loginPage("/login")
+	            .loginProcessingUrl("/perform_login")
+	            .defaultSuccessUrl("/success", true)
+	            .failureUrl("/login?error=true")
+	        .and()
+	        .logout()
+	            .logoutUrl("/perform_logout")
+	            .deleteCookies("JSESSIONID")
+	        .and()
+	        //.csrf().ignoringAntMatchers("/register", "/delete"); // Disable CSRF for specific endpoints
+	        .csrf().ignoringRequestMatchers("/register", "/delete");
 	}
 
 	@Bean
