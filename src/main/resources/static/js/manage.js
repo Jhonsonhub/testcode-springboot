@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initially show the registration form
+    // the registration form
     showForm('register');
 });
 
@@ -11,23 +11,5 @@ function showForm(formType) {
         document.getElementById('registerForm').style.display = 'block';
     } else if (formType === 'delete') {
         document.getElementById('deleteForm').style.display = 'block';
-    }
-}
-
-function submitForm(action) {
-    if (action === '/register') {
-        const registerForm = document.getElementById('registerForm');
-        if (registerForm.checkValidity()) {
-            registerForm.submit();
-        } else {
-            registerForm.reportValidity();
-        }
-    } else if (action === '/delete') {
-        const deleteForm = document.getElementById('deleteForm');
-        if (deleteForm.checkValidity()) {
-            deleteForm.submit();
-        } else {
-            deleteForm.reportValidity();
-        }
     }
 }
